@@ -1,6 +1,4 @@
-import { Exam } from './exam.js';
-
-// Exam Tool
+  import{Exam} from '/workspaces/Exercicios-e-projetos-Js/oi/exame.js'
 
 const weight = { q1: 2, q2: 2, q3: 2, q4: 2, q5: 2 };
 
