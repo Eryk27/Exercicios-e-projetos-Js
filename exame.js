@@ -1,59 +1,54 @@
-class Exam{
-    constructor(wight, answers){
-        this.wight=wight
-        this.answers=answers
-        this.exams=[]
+class Exam {
+    constructor(weigth, answer){
+        this.weigth = weigth
+        this.answer = answer
+        this.exams = []
     }
-    add(exam) {
-        exam.grade = Object.keys(exam.values).reduce((total, q) => {
-          return total + (exam.values[q] === this.answer[q] ? this.weight[q] || 0 : 0);
-        }, 0);
-    
-        this.exams.push(exam);
-    }        
+    add(exam){
+        let total = 0
+        for (let q in exam.values){
+            total += (exam.values[q] === answer[q] ? (this.weight[q] || 0) : 0)
+        }
+        exam.grade = total
+        this.exams.push(exam)
+    }
     avg(){
-      if (this.exams.length === 0) {
-        return 0; 
+        if (!this.exams.length){
+            return 0
+        }
+         let sum = 0; for (let i = 0; i < this.exams.length; i++){
+            sum += this.exams[i].grade
+        }
+        return sum / this.exams.length
     }
-    let sum = this.exams.reduce((total, exam) => total + exam.grade, 0);
-    return sum / this.exams.length;
-    }
-  
-    min(count = 1) {
-        const grades = this.exams.map((exam) => exam.grade);
-        let minGrade = Infinity;
-        for (let grade of grades) {
-            if (grade < minGrade) {
-                minGrade = grade;
+    min(count = 1){
+        const grades = this.exams.map(exam => exam.grade)
+        let minGrade = grades[0]
+        for (let i = 1; i < grades.length; i++){
+            if (grades[i] < minGrade){
+                minGrade = grades[i]
             }
         }
-        return [minGrade];
+        return
     }
-
-    max(count = 1) {
-        const grades = this.exams.map((exam) => exam.grade);
-        let minGrade = Infinity;
-        for (let grade of grades) {
-            if (grade < minGrade) {
-                minGrade = grade;
+    max(count = 1){
+        const grades = this.exams.map(exam => exam.grade)
+        let maxGrade = grades[0]
+        for (let i = 1; i < grades.length; i++){
+            if (grades[i] > maxGrade){
+                maxGrade = grades[i]
             }
         }
-        return [minGrade];
-      }
-      
-    lt(limit) {
-      let grades = this.exams.map((answer) => answer.grade);
-  
-      grades.sort().reverse();
-  
-      return grades.filter((grade) => grade < limit);
+        return [maxGrade];
     }
-  
-    gt(limit) {
-      let grades = this.exams.map((answer) => answer.grade);
-  
-      grades.sort().reverse();
-  
-      return grades.filter((grade) => grade > limit);
+    lt(limit){
+        let grades = this.exams.map((answer) => answer.grade)
+        grades.sort().reverse()
+        return grades.filter((grade) => grade < limit)
+    }
+    gt(limit){
+        let grades = this.exams.map((answer) => answer.grade)
+        grades.sort().reverse()
+        return grades.filter((grade) => grade > limit)
     }
 }
